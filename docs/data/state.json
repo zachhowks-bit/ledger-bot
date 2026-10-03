@@ -1,0 +1,20 @@
+{
+ "cash": 200.6535,
+ "data_source_BTC": "coinbase",
+ "day": "2026-10-03",
+ "day_start": 300.0,
+ "errors": 1,
+ "last_bar": {},
+ "last_mid": {},
+ "last_run": "2026-10-03T17:02:07Z",
+ "peak": 300.0,
+ "runs": 1,
+ "started": "2026-10-03T17:02:07.191339+00:00",
+ "status": "ERROR: [Errno 2] No such file or directory: 'docs/data/trades.csv'",
+ "units": {
+  "BTC": 0.00028344171142311497,
+  "ETH": 0.0
+ },
+ "week": "2026-09-28",
+ "week_start": 300.0
+}
