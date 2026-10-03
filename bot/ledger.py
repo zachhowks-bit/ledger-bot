@@ -15,6 +15,7 @@ import statistics
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -168,15 +169,22 @@ def luno_quote(asset, now):
 
 
 def notify(msg):
-    topic = os.environ.get("NTFY_TOPIC")
     print("NOTIFY:", msg)
-    if not topic:
-        return
-    try:
-        req = urllib.request.Request("https://ntfy.sh/" + topic, data=msg.encode(), method="POST")
-        urllib.request.urlopen(req, timeout=10)
-    except Exception as e:  # noqa: BLE001
-        print("ntfy failed:", e)
+    topic = os.environ.get("NTFY_TOPIC")
+    if topic:
+        try:
+            req = urllib.request.Request("https://ntfy.sh/" + topic, data=msg.encode(), method="POST")
+            urllib.request.urlopen(req, timeout=10)
+        except Exception as e:  # noqa: BLE001
+            print("ntfy failed:", e)
+    tok, chat = os.environ.get("TELEGRAM_BOT_TOKEN"), os.environ.get("TELEGRAM_CHAT_ID")
+    if tok and chat:
+        try:
+            data = urllib.parse.urlencode({"chat_id": chat, "text": msg}).encode()
+            urllib.request.urlopen(urllib.request.Request(
+                "https://api.telegram.org/bot" + tok + "/sendMessage", data=data), timeout=10)
+        except Exception as e:  # noqa: BLE001
+            print("telegram failed:", type(e).__name__)  # never print the URL: it holds the token
 
 
 def load_state():
