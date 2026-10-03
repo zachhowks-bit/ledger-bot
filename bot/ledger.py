@@ -279,6 +279,8 @@ def run(now=None):
                                   "status": status}, EQ_HDR)
         state["status"] = status
         save_state(state)
+        if os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch":  # manual run = alert test
+            notify("ledger-bot manual run ok: equity RM%.2f, %s" % (equity, status))
         return 0
     except Exception as e:  # noqa: BLE001
         state["errors"] = state.get("errors", 0) + 1
