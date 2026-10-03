@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ledger Bot</title>
+<style>
+  :root { --bg:#f6f5f1; --card:#fff; --ink:#1b1c20; --mute:#6b6e7a; --line:#e3e1da; --gain:#2e9a64; --loss:#d4574f; --acc:#b9852a; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#14151a; --card:#1b1d25; --ink:#edeff5; --mute:#8d90a3; --line:#2c2f3c; --gain:#4fb87e; --loss:#e5675f; --acc:#d9a441; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui, sans-serif; padding:0 16px; }
+  main { max-width:900px; margin:0 auto; padding:24px 0 60px; }
+  h1 { font-size:1.4rem; margin:0 0 4px; } .sub { color:var(--mute); font-size:.85rem; margin-bottom:20px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-bottom:20px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px; }
+  .k { font-size:.7rem; text-transform:uppercase; letter-spacing:.08em; color:var(--mute); }
+  .v { font:600 1.35rem ui-monospace, monospace; margin-top:4px; }
+  .pos { color:var(--gain); } .neg { color:var(--loss); }
+  svg { width:100%; height:160px; display:block; }
+  table { width:100%; border-collapse:collapse; font:.8rem ui-monospace, monospace; }
+  th,td { text-align:left; padding:7px 8px; border-bottom:1px solid var(--line); } th { color:var(--mute); font-weight:600; }
+  .wrap { overflow-x:auto; }
+  .banner { padding:10px 14px; border-radius:8px; margin-bottom:16px; border:1px solid var(--line); background:var(--card); font-size:.85rem; }
+  .warn { border-color:var(--loss); }
+  h2 { font-size:1rem; margin:22px 0 8px; }
+  footer { color:var(--mute); font-size:.75rem; margin-top:28px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Ledger Bot <span style="color:var(--acc)">paper</span></h1>
+  <div class="sub">Daily trend rule on BTC and ETH, simulated fills at Luno MYR prices. No real money, no API keys.</div>
+  <div id="banner" class="banner">Loading...</div>
+  <div class="grid">
+    <div class="card"><div class="k">Equity (RM)</div><div class="v" id="eq">-</div></div>
+    <div class="card"><div class="k">Since start</div><div class="v" id="pct">-</div></div>
+    <div class="card"><div class="k">Cash (RM)</div><div class="v" id="cash">-</div></div>
+    <div class="card"><div class="k">Last run</div><div class="v" id="last" style="font-size:.95rem">-</div></div>
+  </div>
+  <div class="card"><div class="k">Equity curve</div><svg id="chart" viewBox="0 0 600 160" preserveAspectRatio="none"></svg></div>
+  <h2>Signals</h2>
+  <div class="wrap"><table id="sig"><thead><tr><th>Asset</th><th>Bar</th><th>Weight</th><th>Close (USD)</th><th>SMA100</th><th>Vol</th><th>Units held</th></tr></thead><tbody></tbody></table></div>
+  <h2>Recent paper trades</h2>
+  <div class="wrap"><table id="tr"><thead><tr><th>Time</th><th>Asset</th><th>Side</th><th>Units</th><th>Price RM</th><th>Fee</th></tr></thead><tbody></tbody></table></div>
+  <footer>Plumbing test first: this page proves the bot runs, not that it profits. Assumptions (fees 0.35%/side, 0.2% slippage) are unverified. Not investment advice.</footer>
+</main>
+<script>
+const rm = n => 'RM ' + Number(n).toFixed(2);
+const parseCsv = t => { const [h, ...r] = t.trim().split('\n'); const k = h.split(','); return r.map(l => Object.fromEntries(l.split(',').map((v,i) => [k[i], v]))); };
+async function get(p, text) { const r = await fetch(p + '?t=' + Date.now()); if (!r.ok) throw new Error(p + ' ' + r.status); return text ? r.text() : r.json(); }
+(async () => {
+  const b = document.getElementById('banner');
+  try {
+    const s = await get('data/state.json');
+    const start = 300;
+    document.getElementById('eq').textContent = rm(s.equity ?? start);
+    const p = ((s.equity ?? start) / start - 1) * 100;
+    const pe = document.getElementById('pct'); pe.textContent = (p >= 0 ? '+' : '') + p.toFixed(2) + '%'; pe.className = 'v ' + (p >= 0 ? 'pos' : 'neg');
+    document.getElementById('cash').textContent = rm(s.cash);
+    document.getElementById('last').textContent = s.last_run || '-';
+    const bad = /HALT|ERROR|KILL/.test(s.status || '') || s.manual_halt;
+    b.textContent = 'Status: ' + (s.status || 'unknown') + (s.manual_halt ? ' (manual halt active)' : '') + ' | runs: ' + s.runs;
+    if (bad) b.classList.add('warn');
+    const tb = document.querySelector('#sig tbody');
+    ['BTC','ETH'].forEach(a => { const g = s['last_signal_' + a]; if (!g) return;
+      tb.insertAdjacentHTML('beforeend', `<tr><td>${a}</td><td>${g.bar}</td><td>${(g.weight*100).toFixed(0)}%</td><td>${Number(g.last).toFixed(0)}</td><td>${Number(g.sma).toFixed(0)}</td><td>${(g.vol*100).toFixed(0)}%</td><td>${s.units[a]}</td></tr>`); });
+    const eq = parseCsv(await get('data/equity.csv', true));
+    if (eq.length > 1) {
+      const v = eq.map(r => +r.equity), min = Math.min(...v), max = Math.max(...v), sp = (max - min) || 1;
+      const pts = v.map((y, i) => (i / (v.length - 1) * 600).toFixed(1) + ',' + (150 - (y - min) / sp * 140).toFixed(1)).join(' ');
+      document.getElementById('chart').innerHTML = `<polyline fill="none" stroke="currentColor" stroke-width="2" points="${pts}"/>`;
+    }
+    try {
+      const tr = parseCsv(await get('data/trades.csv', true)).slice(-15).reverse();
+      document.querySelector('#tr tbody').innerHTML = tr.map(t => `<tr><td>${t.ts}</td><td>${t.asset}</td><td class="${t.side==='buy'?'pos':'neg'}">${t.side}</td><td>${t.units}</td><td>${t.price}</td><td>${t.fee}</td></tr>`).join('') || '<tr><td colspan="6">No trades yet</td></tr>';
+    } catch (e) { document.querySelector('#tr tbody').innerHTML = '<tr><td colspan="6">No trades yet</td></tr>'; }
+  } catch (e) { b.textContent = 'No data yet: the first scheduled run has not happened (' + e.message + ')'; }
+})();
+</script>
+</body>
+</html>
