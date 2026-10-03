@@ -1,0 +1,3 @@
+ts,asset,side,units,price,fee,cash_after,reason
+2026-10-03T17:05:34Z,BTC,buy,0.00028344,349278.16,0.3465,200.65,bar 2026-10-02 close 84505 sma 70751 vol 0.42 -> w 0.33
+2026-10-03T17:05:34Z,ETH,buy,0.00895923,11030.02,0.3459,101.49,bar 2026-10-02 close 2668 sma 2143 vol 0.44 -> w 0.33

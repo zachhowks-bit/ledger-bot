@@ -1,1 +1,44 @@
-{"cash": 300.0, "errors": 0, "last_bar": {}, "last_mid": {}, "runs": 0, "started": "2026-10-03T17:30:00+00:00", "units": {"BTC": 0.0, "ETH": 0.0}}
+{
+ "cash": 101.48722995344126,
+ "data_source_BTC": "coinbase",
+ "data_source_ETH": "coinbase",
+ "day": "2026-10-03",
+ "day_start": 300.0,
+ "equity": 298.91,
+ "errors": 0,
+ "last_bar": {
+  "BTC": "2026-10-02",
+  "ETH": "2026-10-02"
+ },
+ "last_mid": {
+  "BTC": 348580.5,
+  "ETH": 11007.5
+ },
+ "last_run": "2026-10-03T17:05:34Z",
+ "last_signal_BTC": {
+  "bar": "2026-10-02",
+  "last": 84504.88,
+  "long": true,
+  "sma": 70751.105,
+  "vol": 0.4184,
+  "weight": 0.33
+ },
+ "last_signal_ETH": {
+  "bar": "2026-10-02",
+  "last": 2668.13,
+  "long": true,
+  "sma": 2142.8369,
+  "vol": 0.4443,
+  "weight": 0.33
+ },
+ "peak": 300.0,
+ "runs": 1,
+ "started": "2026-10-03T17:30:00+00:00",
+ "status": "ok",
+ "units": {
+  "BTC": 0.00028344171142311497,
+  "ETH": 0.008959225322182605
+ },
+ "week": "2026-09-28",
+ "week_start": 300.0
+}
