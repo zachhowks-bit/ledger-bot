@@ -1,0 +1,19 @@
+name: keepalive
+# GitHub disables scheduled workflows in public repos after 60 days without repo activity.
+# Whether bot commits count is unverified, so this also re-enables the main workflow weekly.
+# If both ever get disabled, re-enable them in the Actions tab (monthly calendar reminder).
+on:
+  schedule:
+    - cron: "43 3 * * 1"
+  workflow_dispatch:
+permissions:
+  actions: write
+  contents: read
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Re-enable ledger workflow
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/ledger.yml/enable"
