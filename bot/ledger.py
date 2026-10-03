@@ -194,6 +194,7 @@ def save_state(state):
 
 def append_csv(name, row, header):
     p = DATA / name
+    p.parent.mkdir(parents=True, exist_ok=True)
     new = not p.exists()
     with p.open("a", newline="") as f:
         w = csv.DictWriter(f, fieldnames=header)
