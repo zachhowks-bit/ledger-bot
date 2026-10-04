@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ledger Lab</title>
+<style>
+  :root { --bg:#f6f5f1; --card:#fff; --ink:#1b1c20; --mute:#6b6e7a; --line:#e3e1da; --gain:#2e9a64; --loss:#d4574f; --acc:#b9852a; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#14151a; --card:#1b1d25; --ink:#edeff5; --mute:#8d90a3; --line:#2c2f3c; --gain:#4fb87e; --loss:#e5675f; --acc:#d9a441; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 system-ui, sans-serif; padding:0 16px; }
+  main { max-width:900px; margin:0 auto; padding:24px 0 60px; }
+  h1 { font-size:1.4rem; margin:0 0 4px; } h2 { font-size:1rem; margin:24px 0 8px; }
+  .sub { color:var(--mute); font-size:.85rem; margin-bottom:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px; margin-bottom:12px; }
+  .wrap { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; font:.8rem ui-monospace, monospace; }
+  th,td { text-align:right; padding:7px 8px; border-bottom:1px solid var(--line); white-space:nowrap; }
+  th:first-child,td:first-child { text-align:left; } th { color:var(--mute); font-weight:600; }
+  .pos { color:var(--gain); } .neg { color:var(--loss); }
+  a { color:var(--acc); } footer { color:var(--mute); font-size:.75rem; margin-top:24px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Ledger Lab <span style="color:var(--acc)">paper</span></h1>
+  <div class="sub"><a href="./">Back to main bot</a> | Strategies run side by side with assumed costs. Nothing here is real money.</div>
+  <div id="root" class="card">Loading...</div>
+  <footer>Backtest = past data, trades fill one bar after the signal. Forward = fresh RM100 paper accounts, the test that counts. Costs are assumptions. Not investment advice.</footer>
+</main>
+<script>
+const pct = (v, d = 1) => v == null ? 'n/a' : (v * 100).toFixed(d) + '%';
+const cls = v => v == null ? '' : (v >= 0 ? 'pos' : 'neg');
+const NAMES = { hold_eq: 'Buy & hold (benchmark)', trend_base: 'Trend, cautious (live bot)', trend_bold: 'Trend, fully invested',
+  trend_vol: 'Trend, bold vol-target', momo2: 'Momentum top-2', breakout: 'Breakout 20/10' };
+function table(rows, head, fn) {
+  return '<div class="wrap"><table><thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead><tbody>' +
+    rows.map(fn).join('') + '</tbody></table></div>';
+}
+(async () => {
+  const root = document.getElementById('root');
+  try {
+    const r = await fetch('data/lab.json?t=' + Date.now());
+    if (!r.ok) throw new Error('lab.json ' + r.status);
+    const d = await r.json();
+    let html = '<div class="sub">Updated ' + d.generated + '</div>';
+    for (const [g, x] of Object.entries(d.groups)) {
+      html += '<h2>' + g.toUpperCase() + ' &middot; ' + x.assets.join(', ') + ' &middot; data ' + x.from + ' to ' + x.to + '</h2>';
+      html += '<div class="card"><b>Backtest</b> (RM100 start)' + table(Object.entries(x.backtest),
+        ['Strategy', 'Final RM', 'Return', 'Per year', 'Worst drop', 'Trades'],
+        ([k, v]) => '<tr><td>' + (NAMES[k] || k) + '</td><td>' + v.equity + '</td><td class="' + cls(v.ret) + '">' + pct(v.ret, 0) +
+          '</td><td class="' + cls(v.cagr) + '">' + pct(v.cagr, 0) + '</td><td class="neg">' + pct(v.maxdd, 0) + '</td><td>' + v.trades + '</td></tr>') + '</div>';
+      const fw = Object.entries(x.forward.strategies);
+      html += '<div class="card"><b>Forward paper test</b> (started ' + x.forward.start + ')' + (fw.length ? table(fw,
+        ['Strategy', 'Days', 'Equity RM', 'Return', 'Worst drop', 'Trades'],
+        ([k, v]) => '<tr><td>' + (NAMES[k] || k) + '</td><td>' + v.days + '</td><td>' + v.equity + '</td><td class="' + cls(v.ret) + '">' +
+          pct(v.ret, 2) + '</td><td class="neg">' + pct(v.maxdd, 1) + '</td><td>' + v.trades + '</td></tr>') : '<div class="sub">Starts on the first run after ' + x.forward.start + '.</div>') + '</div>';
+    }
+    root.outerHTML = html;
+  } catch (e) { root.textContent = 'No lab data yet: run the lab workflow once (' + e.message + ')'; }
+})();
+</script>
+</body>
+</html>
