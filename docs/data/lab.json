@@ -1,0 +1,76 @@
+{
+ "generated": "2026-10-04T06:35:39+00:00",
+ "groups": {
+  "crypto": {
+   "assets": [
+    "BTC",
+    "ETH",
+    "SOL",
+    "LINK",
+    "DOGE"
+   ],
+   "backtest": {
+    "breakout": {
+     "cagr": 0.0843,
+     "days": 1815,
+     "equity": 149.54,
+     "maxdd": -0.6532,
+     "ret": 0.4954,
+     "trades": 734
+    },
+    "hold_eq": {
+     "cagr": -0.001,
+     "days": 1815,
+     "equity": 99.49,
+     "maxdd": -0.7997,
+     "ret": -0.0051,
+     "trades": 31
+    },
+    "momo2": {
+     "cagr": 0.0096,
+     "days": 1815,
+     "equity": 104.88,
+     "maxdd": -0.7187,
+     "ret": 0.0488,
+     "trades": 264
+    },
+    "trend_base": {
+     "cagr": 0.0303,
+     "days": 1815,
+     "equity": 116.0,
+     "maxdd": -0.3693,
+     "ret": 0.16,
+     "trades": 220
+    },
+    "trend_bold": {
+     "cagr": 0.0905,
+     "days": 1815,
+     "equity": 153.81,
+     "maxdd": -0.6251,
+     "ret": 0.5381,
+     "trades": 563
+    },
+    "trend_vol": {
+     "cagr": -0.0862,
+     "days": 1815,
+     "equity": 63.89,
+     "maxdd": -0.8049,
+     "ret": -0.3611,
+     "trades": 653
+    }
+   },
+   "bars": 1935,
+   "curve": {
+    "dates": [],
+    "s": {}
+   },
+   "forward": {
+    "start": "2026-10-05",
+    "strategies": {}
+   },
+   "from": "2021-06-17",
+   "to": "2026-10-03"
+  }
+ },
+ "note": "PAPER ONLY. Costs are assumptions."
+}
