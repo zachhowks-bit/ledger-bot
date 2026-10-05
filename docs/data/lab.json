@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-04T06:35:39+00:00",
+ "generated": "2026-10-05T06:10:00+00:00",
  "groups": {
   "crypto": {
    "assets": [
@@ -11,55 +11,55 @@
    ],
    "backtest": {
     "breakout": {
-     "cagr": 0.0843,
-     "days": 1815,
-     "equity": 149.54,
+     "cagr": 0.0882,
+     "days": 1816,
+     "equity": 152.22,
      "maxdd": -0.6532,
-     "ret": 0.4954,
+     "ret": 0.5222,
      "trades": 734
     },
     "hold_eq": {
-     "cagr": -0.001,
-     "days": 1815,
-     "equity": 99.49,
+     "cagr": 0.0028,
+     "days": 1816,
+     "equity": 101.38,
      "maxdd": -0.7997,
-     "ret": -0.0051,
+     "ret": 0.0138,
      "trades": 31
     },
     "momo2": {
-     "cagr": 0.0096,
-     "days": 1815,
-     "equity": 104.88,
+     "cagr": 0.0124,
+     "days": 1816,
+     "equity": 106.29,
      "maxdd": -0.7187,
-     "ret": 0.0488,
+     "ret": 0.0629,
      "trades": 264
     },
     "trend_base": {
-     "cagr": 0.0303,
-     "days": 1815,
-     "equity": 116.0,
+     "cagr": 0.0325,
+     "days": 1816,
+     "equity": 117.23,
      "maxdd": -0.3693,
-     "ret": 0.16,
+     "ret": 0.1723,
      "trades": 220
     },
     "trend_bold": {
-     "cagr": 0.0905,
-     "days": 1815,
-     "equity": 153.81,
+     "cagr": 0.0945,
+     "days": 1816,
+     "equity": 156.7,
      "maxdd": -0.6251,
-     "ret": 0.5381,
+     "ret": 0.567,
      "trades": 563
     },
     "trend_vol": {
-     "cagr": -0.0862,
-     "days": 1815,
-     "equity": 63.89,
+     "cagr": -0.0831,
+     "days": 1816,
+     "equity": 64.95,
      "maxdd": -0.8049,
-     "ret": -0.3611,
+     "ret": -0.3505,
      "trades": 653
     }
    },
-   "bars": 1935,
+   "bars": 1936,
    "curve": {
     "dates": [],
     "s": {}
@@ -69,7 +69,7 @@
     "strategies": {}
    },
    "from": "2021-06-17",
-   "to": "2026-10-03"
+   "to": "2026-10-04"
   }
  },
  "note": "PAPER ONLY. Costs are assumptions."
