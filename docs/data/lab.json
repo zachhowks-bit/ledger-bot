@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-10T06:20:19+00:00",
+ "generated": "2026-10-11T06:23:15+00:00",
  "groups": {
   "crypto": {
    "assets": [
@@ -11,65 +11,67 @@
    ],
    "backtest": {
     "breakout": {
-     "cagr": 0.067,
-     "days": 1821,
+     "cagr": 0.0669,
+     "days": 1822,
      "equity": 138.15,
      "maxdd": -0.6532,
      "ret": 0.3815,
      "trades": 738
     },
     "hold_eq": {
-     "cagr": -0.0154,
-     "days": 1821,
-     "equity": 92.57,
+     "cagr": -0.0138,
+     "days": 1822,
+     "equity": 93.29,
      "maxdd": -0.7997,
-     "ret": -0.0743,
+     "ret": -0.0671,
      "trades": 31
     },
     "momo2": {
-     "cagr": -0.0105,
-     "days": 1821,
-     "equity": 94.86,
+     "cagr": -0.0092,
+     "days": 1822,
+     "equity": 95.49,
      "maxdd": -0.7187,
-     "ret": -0.0514,
+     "ret": -0.0451,
      "trades": 266
     },
     "trend_base": {
-     "cagr": 0.0239,
-     "days": 1821,
-     "equity": 112.48,
+     "cagr": 0.0246,
+     "days": 1822,
+     "equity": 112.87,
      "maxdd": -0.3693,
-     "ret": 0.1248,
+     "ret": 0.1287,
      "trades": 220
     },
     "trend_bold": {
-     "cagr": 0.0733,
-     "days": 1821,
-     "equity": 142.28,
+     "cagr": 0.0745,
+     "days": 1822,
+     "equity": 143.08,
      "maxdd": -0.6251,
-     "ret": 0.4228,
+     "ret": 0.4308,
      "trades": 565
     },
     "trend_vol": {
-     "cagr": -0.0985,
-     "days": 1821,
-     "equity": 59.62,
+     "cagr": -0.0971,
+     "days": 1822,
+     "equity": 60.08,
      "maxdd": -0.8049,
-     "ret": -0.4038,
+     "ret": -0.3992,
      "trades": 653
     }
    },
-   "bars": 1941,
+   "bars": 1942,
    "curve": {
     "dates": [
      "2026-10-05",
      "2026-10-06",
      "2026-10-07",
      "2026-10-08",
-     "2026-10-09"
+     "2026-10-09",
+     "2026-10-10"
     ],
     "s": {
      "breakout": [
+      100.0,
       100.0,
       100.0,
       100.0,
@@ -81,35 +83,40 @@
       99.09,
       95.03,
       90.9,
-      91.52
+      91.52,
+      92.27
      ],
      "momo2": [
       99.45,
       99.78,
       95.67,
       90.69,
-      90.83
+      90.83,
+      91.94
      ],
      "trend_base": [
       99.64,
       99.41,
       97.02,
       95.2,
-      95.68
+      95.68,
+      96.05
      ],
      "trend_bold": [
       99.45,
       99.09,
       95.03,
       90.9,
-      91.32
+      91.32,
+      91.85
      ],
      "trend_vol": [
       99.45,
       99.09,
       95.03,
       90.9,
-      91.52
+      91.52,
+      92.27
      ]
     }
    },
@@ -118,7 +125,7 @@
     "strategies": {
      "breakout": {
       "cagr": null,
-      "days": 5,
+      "days": 6,
       "equity": 100.0,
       "maxdd": 0.0,
       "ret": 0.0,
@@ -133,83 +140,83 @@
      },
      "hold_eq": {
       "cagr": null,
-      "days": 5,
-      "equity": 91.52,
+      "days": 6,
+      "equity": 92.27,
       "maxdd": -0.086,
-      "ret": -0.0848,
+      "ret": -0.0773,
       "trades": 5,
       "weights": {
-       "BTC": 0.21,
-       "DOGE": 0.192,
+       "BTC": 0.209,
+       "DOGE": 0.191,
        "ETH": 0.2,
-       "LINK": 0.201,
+       "LINK": 0.203,
        "SOL": 0.197
       }
      },
      "momo2": {
       "cagr": null,
-      "days": 5,
-      "equity": 90.83,
+      "days": 6,
+      "equity": 91.94,
       "maxdd": -0.0912,
-      "ret": -0.0917,
+      "ret": -0.0806,
       "trades": 2,
       "weights": {
        "BTC": 0.0,
        "DOGE": 0.0,
        "ETH": 0.0,
-       "LINK": 0.504,
-       "SOL": 0.496
+       "LINK": 0.506,
+       "SOL": 0.494
       }
      },
      "trend_base": {
       "cagr": null,
-      "days": 5,
-      "equity": 95.68,
+      "days": 6,
+      "equity": 96.05,
       "maxdd": -0.0445,
-      "ret": -0.0432,
+      "ret": -0.0395,
       "trades": 2,
       "weights": {
-       "BTC": 0.331,
+       "BTC": 0.332,
        "DOGE": 0.0,
-       "ETH": 0.316,
+       "ETH": 0.317,
        "LINK": 0.0,
        "SOL": 0.0
       }
      },
      "trend_bold": {
       "cagr": null,
-      "days": 5,
-      "equity": 91.32,
+      "days": 6,
+      "equity": 91.85,
       "maxdd": -0.086,
-      "ret": -0.0868,
+      "ret": -0.0815,
       "trades": 7,
       "weights": {
        "BTC": 0.21,
        "DOGE": 0.0,
        "ETH": 0.0,
-       "LINK": 0.202,
-       "SOL": 0.197
+       "LINK": 0.204,
+       "SOL": 0.198
       }
      },
      "trend_vol": {
       "cagr": null,
-      "days": 5,
-      "equity": 91.52,
+      "days": 6,
+      "equity": 92.27,
       "maxdd": -0.086,
-      "ret": -0.0848,
+      "ret": -0.0773,
       "trades": 5,
       "weights": {
-       "BTC": 0.211,
-       "DOGE": 0.192,
+       "BTC": 0.21,
+       "DOGE": 0.191,
        "ETH": 0.201,
-       "LINK": 0.2,
+       "LINK": 0.201,
        "SOL": 0.198
       }
      }
     }
    },
    "from": "2021-06-17",
-   "to": "2026-10-09"
+   "to": "2026-10-10"
   }
  },
  "note": "PAPER ONLY. Costs are assumptions."
