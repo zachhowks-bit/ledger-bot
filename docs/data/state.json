@@ -4,17 +4,17 @@
  "data_source_ETH": "coinbase",
  "day": "2026-10-13",
  "day_start": 285.43992765597267,
- "equity": 285.44,
+ "equity": 290.86,
  "errors": 0,
  "last_bar": {
   "BTC": "2026-10-12",
   "ETH": "2026-10-12"
  },
  "last_mid": {
-  "BTC": 334284.5,
-  "ETH": 9956.5
+  "BTC": 342208.5,
+  "ETH": 10310.5
  },
- "last_run": "2026-10-13T00:47:58Z",
+ "last_run": "2026-10-13T14:20:37Z",
  "last_signal_BTC": {
   "bar": "2026-10-12",
   "last": 81742.5,
@@ -32,7 +32,7 @@
   "weight": 0.33
  },
  "peak": 300.50722363531963,
- "runs": 28,
+ "runs": 29,
  "started": "2026-10-03T17:30:00+00:00",
  "status": "ok",
  "units": {
