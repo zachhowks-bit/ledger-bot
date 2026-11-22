@@ -2,38 +2,38 @@
  "cash": 260.4698385412858,
  "data_source_BTC": "coinbase",
  "data_source_ETH": "coinbase",
- "day": "2026-11-21",
+ "day": "2026-11-22",
  "day_start": 260.4698385412858,
  "equity": 260.47,
  "errors": 0,
  "halt_until": "2026-11-06",
  "last_bar": {
-  "BTC": "2026-11-20",
-  "ETH": "2026-11-20"
+  "BTC": "2026-11-21",
+  "ETH": "2026-11-21"
  },
  "last_mid": {
-  "BTC": 249840.5,
-  "ETH": 6979.5
+  "BTC": 244765.5,
+  "ETH": 6875.5
  },
- "last_run": "2026-11-21T19:25:10Z",
+ "last_run": "2026-11-22T07:01:24Z",
  "last_signal_BTC": {
-  "bar": "2026-11-20",
-  "last": 58814.99,
+  "bar": "2026-11-21",
+  "last": 60086,
   "long": false,
-  "sma": 77661.7658,
-  "vol": 0.4984,
+  "sma": 77628.3723,
+  "vol": 0.5101,
   "weight": 0.0
  },
  "last_signal_ETH": {
-  "bar": "2026-11-20",
-  "last": 1619.29,
+  "bar": "2026-11-21",
+  "last": 1682.3,
   "long": false,
-  "sma": 2368.583,
-  "vol": 0.7172,
+  "sma": 2366.5599,
+  "vol": 0.746,
   "weight": 0.0
  },
  "peak": 300.50722363531963,
- "runs": 141,
+ "runs": 142,
  "started": "2026-10-03T17:30:00+00:00",
  "status": "ok",
  "units": {
